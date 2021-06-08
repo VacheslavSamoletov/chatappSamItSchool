@@ -19,8 +19,8 @@ public class DataAdapter extends RecyclerView.Adapter {
     ArrayList<Message> messages;
 
 
-    final int ITEM_SENT = 1;
-    final int ITEM_RECEIVE = 2;
+     int SENDER = 1;
+     int RECEIVER = 2;
 
     String spaceSender;
     String spaceReceiver;
@@ -36,7 +36,7 @@ public class DataAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == ITEM_SENT) {
+        if(viewType == SENDER) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_sent, parent, false);
             return new SentViewHolder(view);
         } else {
@@ -49,9 +49,9 @@ public class DataAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         Message message = messages.get(position);
         if(FirebaseAuth.getInstance().getUid().equals(message.getSenderId())) {
-            return ITEM_SENT;
+            return SENDER;
         } else {
-            return ITEM_RECEIVE;
+            return RECEIVER;
         }
     }
 
@@ -78,6 +78,7 @@ public class DataAdapter extends RecyclerView.Adapter {
             viewHolder.messageR.setText(message.getMsg());
 
 
+
     }}
 
     @Override
@@ -91,6 +92,7 @@ public class DataAdapter extends RecyclerView.Adapter {
         public ReceiverViewHolder(@NonNull View itemView) {
             super(itemView);
             messageR = itemView.findViewById(R.id.messageR);
+            nameR = itemView.findViewById(R.id.nameR);
 
         }
     }

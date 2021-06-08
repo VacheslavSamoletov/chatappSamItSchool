@@ -22,10 +22,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHolder> {
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.GetUsersViewHolder> {
 
     Context context;
-    ArrayList<User> users;
+   private ArrayList<User> users;
 
     public UsersAdapter(Context context, ArrayList<User> users) {
         this.context = context;
@@ -34,29 +34,29 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
 
     @NonNull
     @Override
-    public UsersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GetUsersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.stroke_users, parent, false);
 
-        return new UsersViewHolder(view);
+        return new  GetUsersViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull  GetUsersViewHolder holder, int position) {
         User user = users.get(position);
 
-        String senderId = FirebaseAuth.getInstance().getUid();
+        String IDsender = FirebaseAuth.getInstance().getUid();
 
-        String senderRoom  = senderId + user.getUid();
+        String spaceSender  = IDsender + user.getUid();
 
         FirebaseDatabase.getInstance().getReference()
                 .child("chats")
-                .child(senderRoom)
+                .child(spaceSender)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-                            String lastMsg = snapshot.child("lastMsg").getValue(String.class);
-                            long time = snapshot.child("lastMsgTime").getValue(Long.class);
+                    public void onDataChange(@NonNull DataSnapshot snap) {
+                        if(snap.exists()) {
+                            String lastMsg = snap.child("lastMsg").getValue(String.class);
+                            long time = snap.child("lastMsgTime").getValue(Long.class);
                             SimpleDateFormat  dateFormat = new SimpleDateFormat("d MMM yyyy",
                                     Locale.getDefault());
                             holder.msgTime.setText(dateFormat.format(new Date(time)));
@@ -81,9 +81,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("name", user.getUsername());
-                intent.putExtra("email", user.getEmail());
-                intent.putExtra("uid", user.getUid());
+
                 context.startActivity(intent);
             }
         });
@@ -94,17 +92,18 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
         return users.size();
     }
 
-    public class UsersViewHolder extends RecyclerView.ViewHolder {
+    public class  GetUsersViewHolder extends RecyclerView.ViewHolder {
 
         TextView usernameIcon;
         TextView lastMsgIcon;
         TextView msgTime;
 
-        public UsersViewHolder(@NonNull View itemView) {
+        public GetUsersViewHolder(@NonNull View itemView) {
             super(itemView);
             usernameIcon = itemView.findViewById(R.id.usernameIcon);
             lastMsgIcon = itemView.findViewById(R.id.lastMsgIcon);
             msgTime = itemView.findViewById(R.id.msgTime);
+
         }
     }
 

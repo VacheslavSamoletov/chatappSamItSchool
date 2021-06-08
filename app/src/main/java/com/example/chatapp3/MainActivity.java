@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String name = getIntent().getStringExtra("name");
+
         String uid = getIntent().getStringExtra("uid");
 
 
@@ -117,12 +117,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String messageTxt = messageField.getText().toString();
-
+               String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                 Date date = new Date();
-                Message messages = new Message(messageTxt, senderUid, date.getTime());
+                Message messages = new Message(messageTxt, senderUid, date.getTime(), name);
                 messageField.setText("");
 
                 String randomKey = database.getReference().push().getKey();
+
 
 
                 database.getReference().child("chats")

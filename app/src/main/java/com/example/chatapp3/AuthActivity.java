@@ -42,7 +42,7 @@ public class AuthActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser cUser = mAuth.getCurrentUser();
         if(cUser != null)
-        { Intent i = new Intent(AuthActivity.this, MainActivity.class);
+        {  Intent i = new Intent(AuthActivity.this, MenuActivity.class);
 
             startActivity(i);
             finish();
@@ -77,7 +77,7 @@ public class AuthActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful())
                                 {
-                                    Intent i = new Intent(AuthActivity.this, MainActivity.class);
+                                    Intent i = new Intent(AuthActivity.this, MenuActivity.class);
 
                                     startActivity(i);
                                     finish();}

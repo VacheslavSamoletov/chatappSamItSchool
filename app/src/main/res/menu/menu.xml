@@ -6,7 +6,7 @@
         android:icon="@drawable/icon_chatss"
         android:title="Chats" />
     <item
-        android:id="@+id/status"
+        android:id="@+id/Profile"
         android:icon="@drawable/staus_icon"
         android:title="Profile" />
 </menu>

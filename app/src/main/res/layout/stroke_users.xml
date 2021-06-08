@@ -16,6 +16,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
+        android:background="#4225E1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/imgprof" />
@@ -27,6 +28,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="Name User"
+        android:textColor="#BBC6DC"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/user_icon"
         app:layout_constraintTop_toTopOf="@+id/user_icon" />
@@ -38,6 +40,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="TextView"
+        android:textColor="#E4D7D7"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

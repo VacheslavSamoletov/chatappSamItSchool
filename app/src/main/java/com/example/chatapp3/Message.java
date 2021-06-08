@@ -5,7 +5,7 @@ public class Message {
     private long time;
     public Message() {
     }
-    public Message(String msg, String senderId, long time) {
+    public Message(String msg, String senderId, long time, String name) {
         this.name = name;
         this.msg = msg;
         this.senderId = senderId;

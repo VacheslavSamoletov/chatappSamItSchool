@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,7 +21,7 @@ import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private ArrayList<User> users;
+     ArrayList<User> users;
     RecyclerView recyclerView;
     User user;
     FirebaseDatabase database;
@@ -27,6 +30,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menumain);
         database = FirebaseDatabase.getInstance();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         recyclerView = findViewById(R.id.recyclerView);
         users = new ArrayList<>();
         UsersAdapter userAdapter = new UsersAdapter(this,users);
@@ -46,13 +50,14 @@ public class MenuActivity extends AppCompatActivity {
                 });
 
 
+
 database.getReference().child("users").addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
         users.clear();
         for(DataSnapshot snapshot1 : snapshot.getChildren()) {
             User user = snapshot1.getValue(User.class);
-            if(!user.getUid().equals(FirebaseAuth.getInstance().getUid()))
+
                 users.add(user);
         }
 
@@ -64,5 +69,26 @@ database.getReference().child("users").addValueEventListener(new ValueEventListe
 
     }
 });
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                    switch (item.getItemId()) {
+                        case R.id.Profile:
+
+                            Intent i = new Intent(MenuActivity.this, ProfileActivity.class);
+
+                            startActivity(i);
+
+                            break;
+                    }
+                    return false;
+                }
+
+        });
     }
+
+
+
 }
